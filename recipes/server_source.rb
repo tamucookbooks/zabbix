@@ -33,7 +33,7 @@ when "redhat","centos","scientific","amazon","oracle"
   when 'mysql', 'rds_mysql'
     php_packages = (node['platform_version'].to_i < 6)?
       %w{ php53-mysql php53-gd php53-bcmath php53-mbstring php53-xml } :
-      %w{ php-mysql php-gd php-bcmath php-mbstring php-xml }
+      %w{ php-mysql php-gd php-bcmath php-mbstring php-xml mysql-devel }
     packages.push(*php_packages)
   when 'postgres'
     php_packages = (node['platform_version'].to_i < 6)?

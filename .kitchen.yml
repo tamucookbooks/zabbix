@@ -1,0 +1,36 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-12.04
+    run_list:
+      - recipe[apt]
+  - name: centos-6.4
+    run_list:
+      - recipe[yum-epel]
+
+suites:
+  - name: default
+    run_list:
+      - recipe[zabbix::default]
+    attributes:
+  - name: server
+    run_list:
+      - recipe[zabbix]
+      - recipe[zabbix::server]
+  - name: mysql_database
+    run_list:
+      - recipe[mysql::server]
+      - recipe[zabbix]
+      - recipe[zabbix::database]
+    attributes: {
+      mysql: {
+        server_debian_password: 'test',
+        server_root_password: 'test',
+        server_repl_password: 'test'
+      }
+    }
